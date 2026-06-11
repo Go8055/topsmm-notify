@@ -18,18 +18,22 @@ def order_webhook():
     data = request.json
     if not data:
         return "No data", 400
-    message = f"""
+    
+    orders = data.get('orders', [data])
+    
+    for order in orders:
+        message = f"""
 🛒 *Naya Order Aaya!*
 
-🆔 Order ID: `{data.get('order_id', 'N/A')}`
-👤 User: `{data.get('user', 'N/A')}`
-📦 Service: `{data.get('service', 'N/A')}`
-🔢 Quantity: `{data.get('quantity', 'N/A')}`
-🔗 Link: `{data.get('link', 'N/A')}`
-💰 Charge: `{data.get('charge', 'N/A')}`
-📊 Status: `{data.get('status', 'N/A')}`
+🆔 Order ID: `{order.get('id', 'N/A')}`
+📦 Service ID: `{order.get('service_id', 'N/A')}`
+🔢 Quantity: `{order.get('quantity', 'N/A')}`
+🔗 Link: `{order.get('link', 'N/A')}`
+🔑 External ID: `{order.get('external_id', 'N/A')}`
+📅 Date: `{order.get('date', 'N/A')}`
+📊 Status: `{order.get('status', 'N/A')}`
 """
-    send_telegram(message)
+        send_telegram(message)
     return "OK", 200
 
 @app.route('/payment', methods=['POST'])
