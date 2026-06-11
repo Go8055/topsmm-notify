@@ -23,7 +23,7 @@ def order_webhook():
     
     for order in orders:
         message = f"""
-🛒 *Naya Order Aaya!*
+🛒 *New Order Recived!*
 
 🆔 Order ID: `{order.get('id', 'N/A')}`
 📦 Service ID: `{order.get('service_id', 'N/A')}`
@@ -42,7 +42,7 @@ def payment_webhook():
     if not data:
         return "No data", 400
     message = f"""
-💰 *Naya Payment Aaya!*
+💰 *New Payment Recived!*
 
 👤 User: `{data.get('user', 'N/A')}`
 💵 Amount: `{data.get('amount', 'N/A')}`
